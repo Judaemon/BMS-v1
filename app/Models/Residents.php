@@ -9,10 +9,6 @@ class Residents extends Model
 {
     use HasFactory;
 
-    //Primary Key
-    public $primaryKey = 'resident_id';
-    // Timestamps
-
     protected $fillable=[
                         'lastname',
                         'middlename',
