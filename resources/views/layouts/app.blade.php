@@ -16,6 +16,9 @@
         {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
         {{-- public\js\init-alpine.js --}}
         <script src="{{ asset('js/init-alpine.js') }}"></script>
+
+        @livewireStyles
+        @powerGridStyles
 </head>
 <body>
 <div
@@ -40,5 +43,9 @@
         </main>
     </div>
 </div>
+
+@livewireScripts
+@powerGridScripts
+
 </body>
 </html>
