@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('birthday')->nullable();
             $table->string('gender')->nullable();
             $table->string('civilstatus')->nullable();
-            $table->string('voterstatus')->nullable();
+            $table->string('isVoter')->nullable()->boolval();
             $table->string('birth_of_place')->nullable();
             $table->string('alias')->nullable();
             $table->string('citizenship')->nullable();
