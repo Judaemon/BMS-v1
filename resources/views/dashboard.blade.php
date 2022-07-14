@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex flex-row">
-            <div class="p-2 basis-3/5">
+            <div class="p-2 basis-8/12">
                 <h2 class="my-6 text-1xl font-semibold text-gray-700 text-center">
                     Current Barangay Member
                 </h2>
@@ -40,7 +40,7 @@
                                 <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
                                     <thead class="bg-gray-100 dark:bg-gray-700">
                                         <tr>
-                                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 w-2/5">
+                                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                                 Name
                                             </th>
                                             <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="p-2 basis-2/5">
+            <div class="p-2 basis-4/12">
                 <h2 class="my-6 text-1xl font-semibold text-gray-700 text-center">
                     Puroks/Areas
                 </h2>
