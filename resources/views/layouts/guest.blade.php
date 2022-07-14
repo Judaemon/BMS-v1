@@ -13,8 +13,7 @@
 
         <!-- Scripts test1-->
         @vite('resources/js/app.js')
-
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
         <script src="{{ asset('js/init-alpine.js') }}"></script>
 </head>
 <body>
