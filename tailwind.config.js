@@ -6,6 +6,7 @@ module.exports = {
     purge: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
+        "./resources/**/*.blade.php", // idk if this goods pero it works
         "./resources/views/**/*.blade.php",
     ],
 
