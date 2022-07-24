@@ -8,6 +8,7 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/**/*.blade.php", // idk if this goods pero it works
         "./resources/views/**/*.blade.php",
+        './vendor/wire-elements/modal/resources/views/*.blade.php', // purging wire element modal
     ],
 
     theme: {
