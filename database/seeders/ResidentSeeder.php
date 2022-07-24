@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Residents;
+use App\Models\Resident;
 use Illuminate\Database\Seeder;
 
 use Carbon\Carbon;
@@ -16,7 +16,7 @@ class ResidentSeeder extends Seeder
      */
     public function run()
     {
-        $residents = [
+        $resident = [
             [
                 'id' => '1',
                 'firstname' => 'adminF',
@@ -24,7 +24,7 @@ class ResidentSeeder extends Seeder
                 'lastname' => 'adminL',
                 'email' => 'admin@admin.admin',
                 'gender' => 'Male',
-                'isVoter' => 'true',
+                'isVoter' => '1',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
@@ -35,7 +35,7 @@ class ResidentSeeder extends Seeder
                 'lastname' => 'sampleResidentL12',
                 'email' => 'sampleResident2@gmail.com',
                 'gender' => 'Female',
-                'isVoter' => 'true',
+                'isVoter' => '1',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
@@ -46,12 +46,12 @@ class ResidentSeeder extends Seeder
                 'lastname' => 'sampleResidentL3',
                 'email' => 'sampleResident3@gmail.com',
                 'gender' => 'Male',
-                'isVoter' => 'false',
+                'isVoter' => '0',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
         ];
 
-        Residents::insert($residents);
+        Resident::insert($resident);
     }
 }

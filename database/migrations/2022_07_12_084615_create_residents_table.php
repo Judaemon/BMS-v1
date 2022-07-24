@@ -18,29 +18,34 @@ return new class extends Migration
             $table->string('firstname')->nullable();
             $table->string('middlename')->nullable();
             $table->string('lastname')->nullable();
+            $table->string('suffix')->nullable();
             $table->date('birthday')->nullable();
+            $table->string('birth_place')->nullable();
             $table->string('gender')->nullable();
-            $table->string('civilstatus')->nullable();
-            $table->string('isVoter')->nullable()->boolval();
-            $table->string('birth_of_place')->nullable();
-            $table->string('alias')->nullable();
-            $table->string('citizenship')->nullable();
-            $table->string('telephone_no')->nullable();
-            $table->string('mobile_no')->nullable();
-            $table->string('height')->nullable();
             $table->string('weight')->nullable();
-            $table->string('PAG_IBIG')->nullable();
-            $table->string('PHILHEALTH')->nullable();
-            $table->string('SSS')->nullable();
-            $table->string('TIN')->nullable();
-            $table->string('email')->nullable();
-            $table->string('spouse')->nullable();
+            $table->string('height')->nullable();
+            $table->string('civil_status')->nullable();
+            $table->string('citizenship')->nullable();
+            $table->string('isVoter')->nullable()->boolval();
+            // $table->string('alias')->nullable();
+
             $table->string('father')->nullable();
             $table->string('mother')->nullable();
-            $table->string('area')->nullable();
+            $table->string('spouse')->nullable();
+
+            $table->string('mobile_no')->nullable();
+            $table->string('email')->nullable();
+            $table->string('telephone_no')->nullable();
             $table->string('address_1')->nullable();
             $table->string('address_2')->nullable();
-            $table->string('date_registered')->nullable();
+            $table->string('house_no')->nullable();
+            $table->string('prk_area')->nullable();
+
+            $table->string('pag_ibig')->nullable();
+            $table->string('philhealth')->nullable();
+            $table->string('sss')->nullable();
+            $table->string('tin')->nullable();
+
             $table->timestamps();
         });
     }
