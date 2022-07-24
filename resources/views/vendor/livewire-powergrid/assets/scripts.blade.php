@@ -33,7 +33,7 @@
     <script src="{{ config('livewire-powergrid.plugins.bootstrap-select.js') }}" crossorigin="anonymous"></script>
 @endif
 
-{{-- Causes error because of duplicate alphine js --}}
+{{-- Causes error because of duplicate Alpine js --}}
 {{-- @if(filled(config('livewire-powergrid.alpinejs_cdn')))
     <script src="{{ config('livewire-powergrid.alpinejs_cdn') }}" defer></script>
 @endif --}}
