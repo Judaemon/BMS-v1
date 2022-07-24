@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-    Route::resource('residents', \App\Http\Controllers\ResidentsController::class);
+    Route::resource('residents', \App\Http\Controllers\ResidentController::class);
 
     // Route::get('residents', [\App\Http\Controllers\ResidentsController::class, 'index'])->name('residents.index');
 
