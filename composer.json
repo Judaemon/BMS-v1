@@ -11,9 +11,11 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "power-components/livewire-powergrid": "^3.2"
+        "power-components/livewire-powergrid": "^3.2",
+        "wire-elements/modal": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "laraveldaily/larastarters": "^1.4",
