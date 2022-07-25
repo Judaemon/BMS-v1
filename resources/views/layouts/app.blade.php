@@ -14,8 +14,7 @@
         <!-- Scripts Testing-->
         @vite('resources/js/app.js')
         {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-        {{-- public\js\init-alpine.js --}}
-        <script src="{{ asset('js/init-alpine.js') }}"></script>
+        <script src="{{ asset('js/init-alpine.js') }}" ></script>
 
         @livewireStyles
         @powerGridStyles
@@ -46,6 +45,15 @@
 
 @livewireScripts
 @powerGridScripts
+@livewire('livewire-ui-modal')
+
+{{-- SweetAlert Added --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    window.addEventListener('swal', function (e){
+        Swal.fire(e.detail);
+    });
+</script>
 
 </body>
 </html>
