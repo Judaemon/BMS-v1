@@ -3,6 +3,7 @@ const plugin = require("tailwindcss/plugin");
 const Color = require("color");
 
 module.exports = {
+    darkMode: 'class',
     purge: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
