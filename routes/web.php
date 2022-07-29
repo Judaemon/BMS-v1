@@ -2,16 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\BlottersController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,11 +20,10 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
 
-    Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-    Route::resource('residents', \App\Http\Controllers\ResidentController::class);
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('residents', [ResidentController::class, 'index'])->name('resident.index');
+    Route::get('blotters', [BlottersController::class, 'index'])->name('blotter.index');
 
-    // Route::get('residents', [\App\Http\Controllers\ResidentsController::class, 'index'])->name('residents.index');
-
-    Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
-    Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 });
