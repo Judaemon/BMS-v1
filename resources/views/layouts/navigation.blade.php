@@ -18,7 +18,7 @@
             </li>
 
             <li class="relative px-6 py-3">
-                <x-nav-link href="{{ route('residents.index') }}" :active="request()->routeIs('residents.index')">
+                <x-nav-link href="{{ route('resident.index') }}" :active="request()->routeIs('resident.index')">
                     <x-slot name="icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                              xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
             </li>
 
             <li class="relative px-6 py-3">
-                <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                <x-nav-link href="{{ route('blotter.index') }}" :active="request()->routeIs('blotter.index')">
                     <x-slot name="icon">
                         <svg class="h-5 w-5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" >
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
