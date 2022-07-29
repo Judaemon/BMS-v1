@@ -1,21 +1,31 @@
 ## Barangay Management System (BMS)
 For MITACOR
-### How tu run
-<p>Softwares needed: </p>
+## How tu run on local server
+### Softwares needed:
     <p>composer</p>
     <p>Laravel 9</p>
     <p>XAMPP</p>
     <p>VS Code</p>
 
-<p>Install dependencies using: </p>
-    <p>npm install</p>
-    <p>composer update && composer instal</p>
+### Install dependencies using: 
+    ```
+    npm install
+    composer update && composer instal
+    ```
 
-<p>run using:</p>
-    <p>php artisan migrate:fresh --seed</p>
-    <p>npm run dev</p>
-    <p>php artisan serv</p>
+### Dependencies
+<p>On separated terminals run using:</p>
+    ```
+        php artisan migrate:fresh --seed
+        npm run dev
+        php artisan serv
+    ```
 
-<p>Admin account: </p>
-    <p>Username: admin@admin.admin</p>
-    <p>Password: admin</p>
+Visit the link provided by the terminal such as `127.0.0.1:8000`  
+
+### Use this account to log in
+    ```
+    Username: admin@admin.admin
+    Password: giann
+    Usertype: admin
+    ```	
