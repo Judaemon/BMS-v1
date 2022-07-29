@@ -2,20 +2,20 @@
 For MITACOR
 ### How tu run
 <p>Softwares needed: </p>
-    <br>composer
-    <br>Laravel 9
-    <br>XAMPP
-    <br>VS Code
+    <p>composer</p>
+    <p>Laravel 9</p>
+    <p>XAMPP</p>
+    <p>VS Code</p>
 
 <p>Install dependencies using: </p>
-    <br>npm install
-    <br>composer update && composer install
+    <p>npm install</p>
+    <p>composer update && composer instal</p>
 
 <p>run using:</p>
-    <br>php artisan migrate:fresh --seed
-    <br>npm run dev
-    <br>php artisan serve
+    <p>php artisan migrate:fresh --seed</p>
+    <p>npm run dev</p>
+    <p>php artisan serv</p>
 
 <p>Admin account: </p>
-    <br>admin@admin.admin
-    <br>admin
+    <p>Username: admin@admin.admin</p>
+    <p>Password: admin</p>
