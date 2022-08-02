@@ -83,11 +83,11 @@
                     {{-- required --}}/>
             </div>
 
-            {{-- Residents --}}
+            {{-- Complainants --}}
             <section class="col-span-12 pb-2">
                 {{-- separator line --}}
                 <div class="flex items-center">
-                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Residents</h3>
+                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Complainant</h3>
                     <div class="flex-grow h-px bg-gray-500/50"></div> {{-- line --}} 
                 </div>
 
