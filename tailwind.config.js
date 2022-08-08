@@ -167,6 +167,10 @@ module.exports = {
             },
             fontFamily: {
                 sans: ["Inter", ...defaultTheme.fontFamily.sans],
+                'poppins': ['Poppins'],
+            },
+            backgroundImage: {
+                // 'wave_separator_blue': "url('resources/wave-separator-blue.svg')",
             },
         },
     },

@@ -1,5 +1,6 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('data', () => ({
+        
         isProfileMenuOpen: false,
         toggleProfileMenu() {
             this.isProfileMenuOpen = !this.isProfileMenuOpen
@@ -12,6 +13,16 @@ document.addEventListener('alpine:init', () => {
         isSideMenuOpen: false,
         toggleSideMenu() {
             this.isSideMenuOpen = !this.isSideMenuOpen
+        },
+
+        isGuestMenuOpen: false,
+        toggleGuestMenu() {
+            console.log(this.isGuestMenuOpen);
+            this.isGuestMenuOpen = !this.isGuestMenuOpen
+        },
+
+        closeGuestMenu() {
+            this.isGuestMenuOpen = false
         },
 
         closeSideMenu() {
