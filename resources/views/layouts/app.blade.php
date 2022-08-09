@@ -47,14 +47,6 @@
 @powerGridScripts
 @livewire('livewire-ui-modal')
 
-{{-- For adding blotter --}}
-<script>
-    Livewire.on('selectingResident', index => {
-        Livewire.emit('openModal', 'select-resident');
-        Livewire.emit('getSelectedResidentIndex', index);
-    })
-</script>
-
 {{-- SweetAlert Added --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>

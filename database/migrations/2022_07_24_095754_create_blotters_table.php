@@ -19,10 +19,10 @@ return new class extends Migration
 
             $table->string('incident_type')->nullable();
             $table->string('incident_location')->nullable();
-            $table->date('incident_date_time')->nullable();
-            $table->date('reported_date_time')->nullable();
+            $table->dateTime('incident_date_time')->nullable();
+            $table->dateTime('reported_date_time')->nullable();
             
-            $table->date('meeting_schedule_date_time')->nullable();            
+            $table->dateTime('meeting_schedule_date_time')->nullable();            
             $table->longText('incident_narrative')->nullable();
             $table->timestamps();
         });

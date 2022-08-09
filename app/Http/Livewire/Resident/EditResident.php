@@ -41,8 +41,9 @@ class EditResident extends ModalComponent
     public function mount($id)
     {
         // $this->resident = Resident::find($id, '*');
-        // dd($test);
+        // dd($id);
         $this->resident = Resident::where('id', $id)->first();
+        // dd($this->resident);
         // $this->resident = $resident;
     }
 

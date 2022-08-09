@@ -19,6 +19,18 @@ class Blotter extends Model
         'incident_narrative',
     ];
 
+    protected $casts = [
+        'incident_date_time' => 'date:Y-m-d',
+        'meeting_schedule_date_time' => 'date:Y-m-d',
+        'reported_date_time' => 'date:Y-m-d',
+    ];
+
+    protected $dates = [
+        'incident_date_time', 
+        'meeting_schedule_date_time', 
+        'reported_date_time', 
+    ];
+
     public function residents()
     {
         return $this->belongsToMany(Resident::class)

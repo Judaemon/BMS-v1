@@ -167,7 +167,7 @@ final class BlotterTable extends PowerGridComponent
             Button::add('edit-modal')
             ->caption('Edit')
             ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-            ->openModal('resident.edit-resident', ['id' => 'id']),
+            ->openModal('blotter.edit-blotter', ['blotter_id' => 'id']),
 
             Button::make('destroy', 'Delete')
                 ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')

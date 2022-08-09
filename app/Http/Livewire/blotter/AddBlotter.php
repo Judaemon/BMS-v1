@@ -12,6 +12,7 @@ class AddBlotter extends ModalComponent
     protected $listeners = [
         'residentSelected' => 'setResidentID',
         'getSelectedResidentIndex' => 'getSelectedResidentIndex',
+        'addInvolvedResident',
     ];
 
     public $status = 'Ongoing';
@@ -22,6 +23,9 @@ class AddBlotter extends ModalComponent
     public $reported_date_time;
     public $incident_narrative;
 
+    // resident role for pivot table. used as reference in adding
+    public string $role;
+
     // residentID, residentFullname, role, narrative
     public $residents = [];
     public $selectedResidentIndex = '';
@@ -29,13 +33,6 @@ class AddBlotter extends ModalComponent
     public function render()
     {
         return view('livewire.blotter.add-blotter');
-    }
-
-    public function mount()
-    {
-        $this->residents = [
-            ['role' => 'Complainant'],
-        ];
     }
 
     public function submit()
@@ -71,22 +68,30 @@ class AddBlotter extends ModalComponent
 
     public function addComplainant()
     {
-        $this->residents[] = ['role' => 'Complainant'];
+        $this->role = 'Complainant';
+
+        $this->emit('openModal', 'select-resident');
     }
 
     public function addVictim()
     {
-        $this->residents[] = ['role' => 'Victim'];
+        $this->role = 'Victim';
+
+        $this->emit('openModal', 'select-resident');
     }
 
     public function addAttacker()
     {
-        $this->residents[] = ['role' => 'Attacker'];
+        $this->role = 'Attacker';
+
+        $this->emit('openModal', 'select-resident');
     }
 
     public function addRespondent()
     {
-        $this->residents[] = ['role' => 'Respondent'];
+        $this->role = 'Respondent';
+
+        $this->emit('openModal', 'select-resident');
     }
 
     public function removeComplainant($index)
@@ -95,22 +100,14 @@ class AddBlotter extends ModalComponent
         array_values($this->residents); // Shuffles index?
     }
 
-    public function getSelectedResidentIndex(int $index)
+    public function addInvolvedResident($residentData)
     {
-        $this->selectedResidentIndex = $index;
-    }
-
-    public function setResidentID($residentData)
-    {
-        $fullname = $residentData['firstname'].' '.$residentData['lastname'];
-
-        $residentOldData = $this->residents[$this->selectedResidentIndex];
-
-        $this->residents[$this->selectedResidentIndex] = [
-            "role" => $residentOldData['role'],
-            "narrative" => $residentOldData['narrative'] ?? '',
-            "fullname" => $fullname,
-            "resident_id" => $residentData['resident_id']
+        $this->residents[] = [
+            'resident_id' => $residentData['resident_id'],
+            'role' => $this->role,
+            'narrative' => '',
+            "firstname" => $residentData['firstname'],
+            "lastname" => $residentData['lastname'],
         ];
 
         $this->closeModal();
@@ -118,16 +115,6 @@ class AddBlotter extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        // 'sm'  => 'sm:max-w-sm',
-        // 'md'  => 'sm:max-w-md',
-        // 'lg'  => 'sm:max-w-md md:max-w-lg',
-        // 'xl'  => 'sm:max-w-md md:max-w-xl',
-        // '2xl' => 'sm:max-w-md md:max-w-xl lg:max-w-2xl',
-        // '3xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl',
-        // '4xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl',
-        // '5xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl',
-        // '6xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl',
-        // '7xl' => 'sm:max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl',
         return '7xl';
     }
 }

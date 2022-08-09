@@ -164,7 +164,15 @@ final class SelectResidentTable extends PowerGridComponent
        return [
            Button::make('select', 'select')
                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-               ->emit('residentSelected', ['resident_id' => 'id', 'firstname' => 'firstname', 'lastname' => 'lastname']),
+               ->emit('addInvolvedResident', [
+                   'resident_id' => 'id', 
+                   'firstname' => 'firstname', 
+                   'lastname' => 'lastname']),
+                   
+                // ->emit('residentSelected', [
+                //     'resident_id' => 'id', 
+                //     'firstname' => 'firstname', 
+                //     'lastname' => 'lastname']),
             //    ->emit('residentSelected', ['selectedID' => 'id', 'firstname' => 'firstname', 'lastname' => 'lastname']),
         ];
     }

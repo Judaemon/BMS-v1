@@ -106,12 +106,10 @@
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
-                                        wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        wire:model.defer="residents.{{$index}}.fullname"
                                         id="residents[{{$index}}][fullname]"
                                         name="residents[{{$index}}][fullname]"
-                                        value="{{ old('test') }}"
+                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
@@ -178,10 +176,9 @@
                                     <x-input type="text"
                                     wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        wire:model.defer="residents.{{$index}}.fullname"
                                         id="residents[{{$index}}][fullname]"
                                         name="residents[{{$index}}][fullname]"
-                                        value="{{ old('test') }}"
+                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
@@ -248,10 +245,9 @@
                                     <x-input type="text"
                                         wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        wire:model.defer="residents.{{$index}}.fullname"
                                         id="residents[{{$index}}][fullname]"
                                         name="residents[{{$index}}][fullname]"
-                                        value="{{ old('test') }}"
+                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
@@ -318,10 +314,9 @@
                                     <x-input type="text"
                                         wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        wire:model.defer="residents.{{$index}}.fullname"
                                         id="residents[{{$index}}][fullname]"
                                         name="residents[{{$index}}][fullname]"
-                                        value="{{ old('test') }}"
+                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
