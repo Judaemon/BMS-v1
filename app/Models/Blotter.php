@@ -20,16 +20,16 @@ class Blotter extends Model
     ];
 
     protected $casts = [
-        'incident_date_time' => 'date:Y-m-d',
-        'meeting_schedule_date_time' => 'date:Y-m-d',
-        'reported_date_time' => 'date:Y-m-d',
+        'incident_date_time' => 'datetime:Y-m-d H:i',
+        'meeting_schedule_date_time' => 'datetime:Y-m-d H:i',
+        'reported_date_time' => 'datetime:Y-m-d H:i',
     ];
 
-    protected $dates = [
-        'incident_date_time', 
-        'meeting_schedule_date_time', 
-        'reported_date_time', 
-    ];
+    // protected $dates = [
+    //     'incident_date_time', 
+    //     'meeting_schedule_date_time', 
+    //     'reported_date_time', 
+    // ];
 
     public function residents()
     {

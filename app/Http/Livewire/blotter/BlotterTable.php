@@ -178,7 +178,7 @@ final class BlotterTable extends PowerGridComponent
             Button::add('view-modal')
                 ->caption('View')
                 ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-                ->openModal('resident.view-resident', ['id' => 'id']),
+                ->openModal('blotter.view-blotter', ['id']),
         ];
     }
 

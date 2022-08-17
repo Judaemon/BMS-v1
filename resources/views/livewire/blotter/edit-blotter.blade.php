@@ -12,6 +12,7 @@
     @php
         // value="{{ $blotter['residents'][0]['pivot']['narrative'] }}"
         // echo '<pre>'; print_r($blotter['incident_date_time']); echo '</pre>';
+        // echo '<pre>'; print_r($blotter->residents[0]->pivot["narrative"]); echo '</pre>';
     @endphp
 
     <hr>
@@ -50,7 +51,6 @@
                     id="incident_date_time"
                     name="incident_date_time"
                     value="{{ $blotter->incident_date_time }}"
-                    placeholder="mdln"
                     class="block w-full"
                     readonly
                     {{-- required --}}/>
@@ -62,7 +62,7 @@
                     id="reported_date_time"
                     name="reported_date_time"
                     value="{{ $blotter->reported_date_time }}"
-                    placeholder="mdln"
+                    readonly
                     class="block w-full"
                     {{-- required --}}/>
             </div>
@@ -73,7 +73,6 @@
                     id="schedule_date_meeting_schedule_date_timetime"
                     name="meeting_schedule_date_time"
                     value="{{ $blotter->meeting_schedule_date_time }}"
-                    placeholder="mdln"
                     class="block w-full"
                     {{-- required --}}/>
             </div>
@@ -87,11 +86,11 @@
                     {{-- required --}}/>
             </div>
 
-            {{-- Residents --}}
+            {{-- Complainants --}}
             <section class="col-span-12 pb-2">
                 {{-- separator line --}}
                 <div class="flex items-center">
-                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Residents</h3>
+                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Complainants</h3>
                     <div class="flex-grow h-px bg-gray-500/50"></div> {{-- line --}} 
                 </div>
 
@@ -107,6 +106,78 @@
                     <tbody>
                         @foreach ($blotter->residents as $index => $resident)
                             @if ($resident->pivot['role'] == 'Complainant')
+                            <tr>
+                                <td class="flex px-2">
+                                    <x-input type="text"
+                                        autocomplete="off"
+                                        readonly
+                                        id="residents[{{$index}}][fullname]"
+                                        name="residents[{{$index}}][fullname]"
+                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        placeholder="Name"
+                                        class="block w-full"
+                                        {{-- required --}}/>
+                                </td>
+                                <td class="col-span-6 pr-2">
+                                    <x-textarea type="text"
+                                    {{-- $blotter->residents[0]->pivot["narrative"] --}}
+                                        wire:model.defer="blotter.residents.{{$index}}.pivot.narrative"
+                                        placeholder="I saw ...."
+                                        class="block w-full mb-2"
+                                    >
+                                        <x-slot name="text">
+                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                        </x-slot>
+                                    </x-textarea>
+                                </td>
+                                <td class="col-span-2 px-2 flex">
+                                    <x-button type="button" wire:click.prevent="removeComplainant({{$index}})" class="px-4 w-max bg-red-600 hover:bg-red-700">
+                                        {{ __('Remove') }}
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button>
+                                </td>
+                            </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="col-span-4 px-2">
+                    <x-button type="button" wire:click.prevent="addComplainant" class="px-2">
+                        {{ __('Add Complainant') }}
+                        <x-slot name="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                              </svg>
+                        </x-slot>
+                    </x-button>
+                </div>
+            </section>
+
+            {{-- Victim --}}
+            <section class="col-span-12 pb-2">
+                {{-- separator line --}}
+                <div class="flex items-center">
+                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Victims</h3>
+                    <div class="flex-grow h-px bg-gray-500/50"></div> {{-- line --}} 
+                </div>
+
+                
+                <table class="table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="w-3/12">Name</th>
+                            <th class="w-7/12">Narrative</th>
+                            <th class="w-2/12">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($blotter->residents as $index => $resident)
+                            @if ($resident->pivot['role'] == 'Victim')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
@@ -157,7 +228,146 @@
                 </div>
             </section>
 
-            {{-- 123 --}}
+            {{-- Attacker --}}
+            <section class="col-span-12 pb-2">
+                {{-- separator line --}}
+                <div class="flex items-center">
+                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Attacker</h3>
+                    <div class="flex-grow h-px bg-gray-500/50"></div> {{-- line --}} 
+                </div>
+
+                
+                <table class="table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="w-3/12">Name</th>
+                            <th class="w-7/12">Narrative</th>
+                            <th class="w-2/12">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($blotter->residents as $index => $resident)
+                            @if ($resident->pivot['role'] == 'Attacker')
+                            <tr>
+                                <td class="flex px-2">
+                                    <x-input type="text"
+                                        autocomplete="off"
+                                        readonly
+                                        id="residents[{{$index}}][fullname]"
+                                        name="residents[{{$index}}][fullname]"
+                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        placeholder="Name"
+                                        class="block w-full"
+                                        {{-- required --}}/>
+                                </td>
+                                <td class="col-span-6 pr-2">
+                                    <x-textarea type="text"
+                                        placeholder="I saw ...."
+                                        class="block w-full mb-2"
+                                    >
+                                        <x-slot name="text">
+                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                        </x-slot>
+                                    </x-textarea>
+                                </td>
+                                <td class="col-span-2 px-2 flex">
+                                    <x-button type="button" wire:click.prevent="removeComplainant({{$index}})" class="px-4 w-max bg-red-600 hover:bg-red-700">
+                                        {{ __('Remove') }}
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button>
+                                </td>
+                            </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="col-span-4 px-2">
+                    <x-button type="button" wire:click.prevent="addComplainant" class="px-2">
+                        {{ __('Add Complainant') }}
+                        <x-slot name="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                              </svg>
+                        </x-slot>
+                    </x-button>
+                </div>
+            </section>
+
+            {{-- Respondent --}}
+            <section class="col-span-12 pb-2">
+                {{-- separator line --}}
+                <div class="flex items-center">
+                    <h3 class="flex-shrink my-2 font-medium text-sm text-gray-700 mr-2">Respondent</h3>
+                    <div class="flex-grow h-px bg-gray-500/50"></div> {{-- line --}} 
+                </div>
+
+                
+                <table class="table-fixed">
+                    <thead>
+                        <tr>
+                            <th class="w-3/12">Name</th>
+                            <th class="w-7/12">Narrative</th>
+                            <th class="w-2/12">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($blotter->residents as $index => $resident)
+                            @if ($resident->pivot['role'] == 'Respondent')
+                            <tr>
+                                <td class="flex px-2">
+                                    <x-input type="text"
+                                        autocomplete="off"
+                                        readonly
+                                        id="residents[{{$index}}][fullname]"
+                                        name="residents[{{$index}}][fullname]"
+                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        placeholder="Name"
+                                        class="block w-full"
+                                        {{-- required --}}/>
+                                </td>
+                                <td class="col-span-6 pr-2">
+                                    <x-textarea type="text"
+                                        placeholder="I saw ...."
+                                        class="block w-full mb-2"
+                                    >
+                                        <x-slot name="text">
+                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                        </x-slot>
+                                    </x-textarea>
+                                </td>
+                                <td class="col-span-2 px-2 flex">
+                                    <x-button type="button" wire:click.prevent="removeComplainant({{$index}})" class="px-4 w-max bg-red-600 hover:bg-red-700">
+                                        {{ __('Remove') }}
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button>
+                                </td>
+                            </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="col-span-4 px-2">
+                    <x-button type="button" wire:click.prevent="addComplainant" class="px-2">
+                        {{ __('Add Complainant') }}
+                        <x-slot name="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                              </svg>
+                        </x-slot>
+                    </x-button>
+                </div>
+            </section>
+
         </div>
 
         <div class="mt-4 flex flex-row-reverse space-x-4">
