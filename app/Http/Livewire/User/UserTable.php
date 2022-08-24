@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\user;
 
-use App\Models\Resident;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class SelectResidentTable extends PowerGridComponent
+final class UserTable extends PowerGridComponent
 {
     use ActionButton;
 
+    public $roles = ['Super Admin', 'Resident'];
     /*
     |--------------------------------------------------------------------------
     |  Features Setup
@@ -22,11 +23,26 @@ final class SelectResidentTable extends PowerGridComponent
     */
     public function setUp(): array
     {
+        $this->showCheckBox();
+
         return [
+            Exportable::make('export')
+                ->striped()
+                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+        ];
+    }
+
+    public function header(): array
+    {
+        return [
+            Button::add('new-modal')
+                ->caption('Add User')
+                ->class('bg-green-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+                ->openModal('user.add-user', []),
         ];
     }
 
@@ -41,11 +57,11 @@ final class SelectResidentTable extends PowerGridComponent
     /**
     * PowerGrid datasource.
     *
-    * @return Builder<\App\Models\Resident>
+    * @return Builder<\App\Models\User>
     */
     public function datasource(): Builder
     {
-        return Resident::query();
+        return User::role($this->roles);
     }
 
     /*
@@ -77,14 +93,11 @@ final class SelectResidentTable extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('id')
-            ->addColumn('firstname')
-            ->addColumn('middlename')
-            ->addColumn('lastname')
-            ->addColumn('suffix')
-            ->addColumn('gender')
-            ->addColumn('height')
-            ->addColumn('prk_area');
+        ->addColumn('id')
+        ->addColumn('lastname')
+        ->addColumn('firstname')
+        ->addColumn('mobile_no')
+        ->addColumn('email');    
     }
 
     /*
@@ -104,15 +117,11 @@ final class SelectResidentTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')
+            Column::make('USER ID', 'id')
+                ->sortable()
                 ->makeInputRange(),
 
             Column::make('FIRSTNAME', 'firstname')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('MIDDLENAME', 'middlename')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -122,27 +131,16 @@ final class SelectResidentTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('SUFFIX', 'suffix')
+            Column::make('MOBILE NO', 'mobile_no')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('GENDER', 'gender')
+            Column::make('EMAIL', 'email')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
-
-            Column::make('HEIGHT', 'height')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('PRK AREA', 'prk_area')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-        ]
-;
+        ];
     }
 
     /*
@@ -154,28 +152,27 @@ final class SelectResidentTable extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Resident Action Buttons.
+     * PowerGrid User Action Buttons.
      *
      * @return array<int, Button>
      */
 
+
     public function actions(): array
     {
        return [
-           Button::make('select', 'select')
-               ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-               ->emit('addInvolvedResident', [
-                   'resident_id' => 'id', 
-                   'firstname' => 'firstname', 
-                   'lastname' => 'lastname']),
-                   
-                // ->emit('residentSelected', [
-                //     'resident_id' => 'id', 
-                //     'firstname' => 'firstname', 
-                //     'lastname' => 'lastname']),
-            //    ->emit('residentSelected', ['selectedID' => 'id', 'firstname' => 'firstname', 'lastname' => 'lastname']),
+        Button::add('edit-modal')
+            ->caption('Edit')
+            ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+            ->openModal('user.edit-user', ['id']),
+
+        Button::add('delete-modal')
+            ->caption('Delete')
+            ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+            ->openModal('user.delete-user', ['id']),
         ];
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +183,7 @@ final class SelectResidentTable extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Resident Action Rules.
+     * PowerGrid User Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -198,11 +195,9 @@ final class SelectResidentTable extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($resident) => $resident->id === 1)
+                ->when(fn($user) => $user->id === 1)
                 ->hide(),
         ];
     }
     */
-
-    
 }

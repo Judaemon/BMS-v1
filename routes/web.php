@@ -20,8 +20,8 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
 
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::get('residents', [ResidentController::class, 'index'])->name('resident.index');
+    Route::view('users', 'users')->name('user.index');
+
     Route::get('blotters', [BlottersController::class, 'index'])->name('blotter.index');
 
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');

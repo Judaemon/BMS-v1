@@ -1,5 +1,5 @@
 <div class="@if($type === 'hidden') hidden @else @endif">
-    <label class="block flex flex-col">
+    <label class="flex flex-col">
         <x-form-label :label="$label" />
 
         <input {!! $attributes->merge([

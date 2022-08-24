@@ -5,12 +5,14 @@ const Color = require("color");
 module.exports = {
     darkMode: 'class',
     purge: [
-        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-        "./storage/framework/views/*.php",
-        "./resources/**/*.blade.php", // idk if this goods pero it works
-        "./resources/views/**/*.blade.php",
-        './vendor/wire-elements/modal/resources/views/*.blade.php', // purging wire element modal
-    ],
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+
+        // powergrid
+        './app/Http/Livewire/**/*Table.php',
+        './vendor/power-components/livewire-powergrid/resources/views/**/*.php',
+        './vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php'    ],
 
     theme: {
         themeVariants: ["dark"],
