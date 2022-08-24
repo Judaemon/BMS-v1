@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +19,39 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'middlename',
+        'lastname',
+        'suffix',
+        'birthday',
+        'birth_place',
+        'gender',
+        'weight',
+        'height',
+        'civil_status',
+        'citizenship',
+        'isVoter',
+
+        'father',
+        'mother',
+        'spouse',
+
+        'mobile_no',
         'email',
         'password',
+        'telephone_no',
+        'address_1',
+        'address_2',
+        'house_no',
+        'prk_area',
+
+        'pag_ibig',
+        'philhealth',
+        'sss',
+        'tin',
+
+        'barangay_position',
+        'date_registered',
     ];
 
     /**
@@ -41,4 +72,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // 1 to 1 relationship
+    public function resident()
+    {
+        return $this->hasOne(Resident::class);
+    }
 }
