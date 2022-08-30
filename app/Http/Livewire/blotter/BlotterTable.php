@@ -13,8 +13,6 @@ final class BlotterTable extends PowerGridComponent
 {
     use ActionButton;
 
-    public $blotter_id;
-
     /*
     |--------------------------------------------------------------------------
     |  Features Setup
@@ -24,8 +22,6 @@ final class BlotterTable extends PowerGridComponent
     */
     public function setUp(): array
     {
-        $this->tableName = 'BlotterTable';
-
         $this->showCheckBox();
 
         return [
@@ -163,21 +159,34 @@ final class BlotterTable extends PowerGridComponent
 
     public function actions(): array
     {
+        if ($this->tableName == 'BlotterScheduleTable') {
+            return [
+                Button::add('edit-modal')
+                ->caption('Edit')
+                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+                ->openModal('blotter.edit-blotter', ['id']),
+    
+                Button::add('view-modal')
+                    ->caption('View')
+                    ->class('bg-green-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+                    ->openModal('blotter.view-blotter', ['id']),
+            ];
+        }
+
        return [
             Button::add('edit-modal')
             ->caption('Edit')
             ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-            ->openModal('blotter.edit-blotter', ['blotter_id' => 'id']),
+            ->openModal('blotter.edit-blotter', ['id']),
 
-            Button::make('destroy', 'Delete')
-                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-                ->emit('blotterDeleteConfirmation', ['blotter_id' => 'id']),
-                // ->method('delete'),
-                // ->route('residents.destroy', ['resident' => 'id'])
+            Button::add('delete-modal')
+            ->caption('Delete')
+            ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+            ->openModal('blotter.delete-blotter', ['id']),
 
             Button::add('view-modal')
                 ->caption('View')
-                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+                ->class('bg-green-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
                 ->openModal('blotter.view-blotter', ['id']),
         ];
     }
@@ -208,47 +217,4 @@ final class BlotterTable extends PowerGridComponent
         ];
     }
     */
-
-    protected function getListeners(): array
-    {
-        return array_merge(
-            parent::getListeners(), 
-            [
-                'blotterDeleteConfirmation',
-                'deleteBlotter',
-            ]);
-    }
-
-    public function blotterDeleteConfirmation($blotter_id)
-    {
-        $this->delete_id = $blotter_id['blotter_id'];
-
-        $this->dispatchBrowserEvent('swal-confirm', [
-            'title' => 'Are you sure?',
-            'text' => "You won't be able to revert this!",
-            'icon' => 'warning',
-            'showCancelButton' => 'true',
-            'confirmButtonText' => 'Yes, delete it!',
-            'cancelButtonText' => 'No, cancel!',
-            'reverseButtons' => 'true',
-        ]);
-    }
-
-    public function deleteBlotter()
-    {
-        Blotter::where('id', $this->delete_id)->delete();
-
-        $this->dispatchBrowserEvent('swal', [
-            'title' => 'Deleted!',
-            'text' => "Deleted successfully!",
-            'icon' => 'success',
-            'timer' => 2000,
-            'timerProgressBar' => true,
-            'showConfirmButton' => true,
-            // 'showCancelButton' => 'true',
-            // 'confirmButtonText' => 'Yes, delete it!',
-            // 'cancelButtonText' => 'No, cancel!',
-            // 'reverseButtons' => 'true'
-        ]);
-    }
 }

@@ -10,11 +10,13 @@ use App\Models\Resident;
 class AddBlotter extends ModalComponent
 {
     protected $listeners = [
-        'residentSelected' => 'setResidentID',
-        'getSelectedResidentIndex' => 'getSelectedResidentIndex',
-        'addInvolvedResident',
+        'addInvolvedUser',
     ];
 
+    public $role1 = [
+
+    ];
+    
     public $status = 'Ongoing';
     public $incident_type;
     public $incident_location;
@@ -23,12 +25,12 @@ class AddBlotter extends ModalComponent
     public $reported_date_time;
     public $incident_narrative;
 
-    // resident role for pivot table. used as reference in adding
+    // user role for pivot table. used as reference in adding
     public string $role;
 
-    // residentID, residentFullname, role, narrative
-    public $residents = [];
-    public $selectedResidentIndex = '';
+    // userID, userFullname, role, narrative
+    public $users = [];
+    public $selectedUserIndex = '';
 
     public function render()
     {
@@ -47,10 +49,10 @@ class AddBlotter extends ModalComponent
             'incident_narrative' => $this->incident_narrative,
         ]);
 
-        foreach ($this->residents as $resident) {
-            if (!empty($resident['resident_id'])) {
-                $blotter->residents()->attach($resident['resident_id'],
-                    ['role' => $resident['role'], 'narrative' => $resident['narrative']]);
+        foreach ($this->users as $user) {
+            if (!empty($user['user_id'])) {
+                $blotter->users()->attach($user['user_id'],
+                    ['role' => $user['role'], 'narrative' => $user['narrative']]);
         
             }
         }
@@ -70,44 +72,44 @@ class AddBlotter extends ModalComponent
     {
         $this->role = 'Complainant';
 
-        $this->emit('openModal', 'select-resident');
+        $this->emit('openModal', 'user.select-user-modal');
     }
 
     public function addVictim()
     {
         $this->role = 'Victim';
 
-        $this->emit('openModal', 'select-resident');
+        $this->emit('openModal', 'user.select-user-modal');
     }
 
     public function addAttacker()
     {
         $this->role = 'Attacker';
 
-        $this->emit('openModal', 'select-resident');
+        $this->emit('openModal', 'user.select-user-modal');
     }
 
     public function addRespondent()
     {
         $this->role = 'Respondent';
 
-        $this->emit('openModal', 'select-resident');
+        $this->emit('openModal', 'user.select-user-modal');
     }
 
     public function removeComplainant($index)
     {
-        unset($this->residents[$index]);
-        array_values($this->residents); // Shuffles index?
+        unset($this->users[$index]);
+        array_values($this->users); // Shuffles index?
     }
 
-    public function addInvolvedResident($residentData)
+    public function addInvolvedUser($userData)
     {
-        $this->residents[] = [
-            'resident_id' => $residentData['resident_id'],
+        $this->users[] = [
+            'user_id' => $userData['user_id'],
             'role' => $this->role,
             'narrative' => '',
-            "firstname" => $residentData['firstname'],
-            "lastname" => $residentData['lastname'],
+            "firstname" => $userData['firstname'],
+            "lastname" => $userData['lastname'],
         ];
 
         $this->closeModal();

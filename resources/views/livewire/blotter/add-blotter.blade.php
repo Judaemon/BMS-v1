@@ -101,24 +101,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($residents as $index => $resident)
-                            @if ($resident['role'] == 'Complainant')
+                        @foreach ($users as $index => $user)
+                            @if ($user['role'] == 'Complainant')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
                                         autocomplete="off"
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
+                                        value="{{ $user['firstname'] .' '. $user['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
                                 </td>
                                 <td class="col-span-6 pr-2">
                                     <x-textarea type="text"
-                                        wire:model.defer="residents.{{$index}}.narrative"
-                                        id="residents[{{$index}}][narrative]"
-                                        name="residents[{{$index}}][narrative]"
+                                        wire:model.defer="users.{{$index}}.narrative"
                                         value="{{ old('test') }}"
                                         placeholder="I saw ...."
                                         class="block w-full mb-2"
@@ -169,25 +165,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($residents as $index => $resident)
-                            @if ($resident['role'] == 'Victim')
+                        @foreach ($users as $index => $user)
+                            @if ($user['role'] == 'Victim')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
-                                    wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
+                                        value="{{ $user['firstname'] .' '. $user['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
                                 </td>
                                 <td class="col-span-6 pr-2">
                                     <x-textarea type="text"
-                                        wire:model.defer="residents.{{$index}}.narrative"
-                                        id="residents[{{$index}}][narrative]"
-                                        name="residents[{{$index}}][narrative]"
+                                        wire:model.defer="users.{{$index}}.narrative"
                                         value="{{ old('test') }}"
                                         placeholder="I saw ...."
                                         class="block w-full mb-2"
@@ -238,25 +229,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($residents as $index => $resident)
-                            @if ($resident['role'] == 'Attacker')
+                        @foreach ($users as $index => $user)
+                            @if ($user['role'] == 'Attacker')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
-                                        wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
+                                        value="{{ $user['firstname'] .' '. $user['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
                                 </td>
                                 <td class="col-span-6 pr-2">
                                     <x-textarea type="text"
-                                        wire:model.defer="residents.{{$index}}.narrative"
-                                        id="residents[{{$index}}][narrative]"
-                                        name="residents[{{$index}}][narrative]"
+                                        wire:model.defer="users.{{$index}}.narrative"
                                         value="{{ old('test') }}"
                                         placeholder="I saw ...."
                                         class="block w-full mb-2"
@@ -307,25 +293,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($residents as $index => $resident)
-                            @if ($resident['role'] == 'Respondent')
+                        @foreach ($users as $index => $user)
+                            @if ($user['role'] == 'Respondent')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
-                                        wire:click="$emit('selectingResident', {{$index}})"
                                         autocomplete="off"
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident['firstname'] .' '. $resident['lastname']}}"
+                                        value="{{ $user['firstname'] .' '. $user['lastname']}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
                                 </td>
                                 <td class="col-span-6 pr-2">
                                     <x-textarea type="text"
-                                        wire:model.defer="residents.{{$index}}.narrative"
-                                        id="residents[{{$index}}][narrative]"
-                                        name="residents[{{$index}}][narrative]"
+                                        wire:model.defer="users.{{$index}}.narrative"
                                         value="{{ old('test') }}"
                                         placeholder="I saw ...."
                                         class="block w-full mb-2"

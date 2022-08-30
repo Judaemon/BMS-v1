@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\Resident;
+namespace App\Http\Livewire\User;
 
-use App\Models\Resident;
+use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
-use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent, WithPagination};
+use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class ResidentTable extends PowerGridComponent
+final class SelectUserTable extends PowerGridComponent
 {
     use ActionButton;
 
-    public $delete_id;
     /*
     |--------------------------------------------------------------------------
     |  Features Setup
@@ -22,14 +22,7 @@ final class ResidentTable extends PowerGridComponent
     */
     public function setUp(): array
     {
-        $this->tableName = 'ResidentTable';
-
-        $this->showCheckBox();
-
         return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
@@ -37,15 +30,6 @@ final class ResidentTable extends PowerGridComponent
         ];
     }
 
-    public function header(): array
-    {
-        return [
-            Button::add('new-modal')
-                ->caption('Add resident')
-                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-                ->openModal('resident.add-resident', []),
-        ];
-    }
     /*
     |--------------------------------------------------------------------------
     |  Datasource
@@ -57,11 +41,11 @@ final class ResidentTable extends PowerGridComponent
     /**
     * PowerGrid datasource.
     *
-    * @return Builder<\App\Models\Resident>
+    * @return Builder<\App\Models\User>
     */
     public function datasource(): Builder
     {
-        return Resident::query();
+        return User::query();
     }
 
     /*
@@ -94,11 +78,14 @@ final class ResidentTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('lastname')
             ->addColumn('firstname')
-            ->addColumn('mobile_no')
-            ->addColumn('email');
-    }
+            ->addColumn('middlename')
+            ->addColumn('lastname')
+            ->addColumn('suffix')
+            ->addColumn('gender')
+            ->addColumn('height')
+            ->addColumn('prk_area');
+        }
 
     /*
     |--------------------------------------------------------------------------
@@ -117,11 +104,15 @@ final class ResidentTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('RESIDENT ID', 'id')
-                ->sortable()
+            Column::make('ID', 'id')
                 ->makeInputRange(),
 
             Column::make('FIRSTNAME', 'firstname')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('MIDDLENAME', 'middlename')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -131,12 +122,22 @@ final class ResidentTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('MOBILE NO', 'mobile_no')
+            Column::make('SUFFIX', 'suffix')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('EMAIL', 'email')
+            Column::make('GENDER', 'gender')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('HEIGHT', 'height')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::make('PRK AREA', 'prk_area')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -152,7 +153,7 @@ final class ResidentTable extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Resident Action Buttons.
+     * PowerGrid User Action Buttons.
      *
      * @return array<int, Button>
      */
@@ -160,26 +161,12 @@ final class ResidentTable extends PowerGridComponent
     public function actions(): array
     {
        return [
-            Button::add('edit-modal')
-                ->caption('Edit')
-                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-                ->openModal('resident.edit-resident', ['id' => 'id']),
-
-            Button::make('destroy', 'Delete')
-                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-                ->emit('residentDeleteConfirmation', ['deleteID' => 'id']),
-                // ->method('delete'),
-                // ->route('residents.destroy', ['resident' => 'id'])
-       
-            Button::add('view-modal')
-                ->caption('View')
-                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-                ->openModal('resident.view-resident', ['id' => 'id']),
-
-            // https://livewire-powergrid.com/#/table/detail-row
-            // Button::add('toggle-detail')
-            //     ->caption('Toggle Detail')
-            //     ->toggleDetail(),
+           Button::make('select', 'select')
+               ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+               ->emit('addInvolvedUser', [
+                   'user_id' => 'id', 
+                   'firstname' => 'firstname', 
+                   'lastname' => 'lastname']),
         ];
     }
 
@@ -192,7 +179,7 @@ final class ResidentTable extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Resident Action Rules.
+     * PowerGrid User Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -204,52 +191,9 @@ final class ResidentTable extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($Resident) => $Resident->id === 1)
+                ->when(fn($user) => $user->id === 1)
                 ->hide(),
         ];
     }
     */
-
-    protected function getListeners(): array
-    {
-        return array_merge(
-            parent::getListeners(), 
-            [
-                'residentDeleteConfirmation',
-                'deleteResident' => 'deleteResident'
-            ]);
-    }
-
-    public function residentDeleteConfirmation($deleteID)
-    {
-        $this->delete_id = $deleteID['deleteID'];
-
-        $this->dispatchBrowserEvent('swal-confirm', [
-            'title' => 'Are you sure?',
-            'text' => "You won't be able to revert this!",
-            'icon' => 'warning',
-            'showCancelButton' => 'true',
-            'confirmButtonText' => 'Yes, delete it!',
-            'cancelButtonText' => 'No, cancel!',
-            'reverseButtons' => 'true',
-        ]);
-    }
-
-    public function deleteResident()
-    {
-        Resident::where('id', $this->delete_id)->delete();
-
-        $this->dispatchBrowserEvent('swal', [
-            'title' => 'Deleted!',
-            'text' => "Deleted successfully!",
-            'icon' => 'success',
-            'timer' => 2000,
-            'timerProgressBar' => true,
-            'showConfirmButton' => true,
-            // 'showCancelButton' => 'true',
-            // 'confirmButtonText' => 'Yes, delete it!',
-            // 'cancelButtonText' => 'No, cancel!',
-            // 'reverseButtons' => 'true'
-        ]);
-    }
 }

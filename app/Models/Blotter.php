@@ -25,15 +25,9 @@ class Blotter extends Model
         'reported_date_time' => 'datetime:Y-m-d H:i',
     ];
 
-    // protected $dates = [
-    //     'incident_date_time', 
-    //     'meeting_schedule_date_time', 
-    //     'reported_date_time', 
-    // ];
-
-    public function residents()
+    public function users()
     {
-        return $this->belongsToMany(Resident::class)
+        return $this->belongsToMany(User::class)
             ->withPivot(['role', 'narrative'])
             ->withTimestamps();
     }

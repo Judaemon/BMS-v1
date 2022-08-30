@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blotter_resident', function (Blueprint $table) {
+        Schema::create('blotter_user', function (Blueprint $table) {
             $table->foreignId('blotter_id')->constrained()->onDelete('cascade');
-            $table->foreignId('resident_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('role');
             $table->longText('narrative')->nullable();
             $table->timestamps();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blotter_resident');
+        Schema::dropIfExists('blotter_user');
     }
 };

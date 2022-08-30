@@ -10,9 +10,9 @@
         </button>
     </div>
     @php
-        // value="{{ $blotter['residents'][0]['pivot']['narrative'] }}"
+        // value="{{ $blotter['users'][0]['pivot']['narrative'] }}"
         // echo '<pre>'; print_r($blotter['incident_date_time']); echo '</pre>';
-        // echo '<pre>'; print_r($blotter->residents[0]->pivot["narrative"]); echo '</pre>';
+        // echo '<pre>'; print_r($blotter->users[0]->pivot["narrative"]); echo '</pre>';
     @endphp
 
     <hr>
@@ -104,29 +104,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blotter->residents as $index => $resident)
-                            @if ($resident->pivot['role'] == 'Complainant')
+                        @foreach ($blotter->users as $index => $user)
+                            @if ($user->pivot['role'] == 'Complainant')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
                                         autocomplete="off"
                                         readonly
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        id="users[{{$index}}][fullname]"
+                                        name="users[{{$index}}][fullname]"
+                                        value="{{ $user->firstname .' '. $user->lastname}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
                                 </td>
                                 <td class="col-span-6 pr-2">
                                     <x-textarea type="text"
-                                    {{-- $blotter->residents[0]->pivot["narrative"] --}}
-                                        wire:model.defer="blotter.residents.{{$index}}.pivot.narrative"
                                         placeholder="I saw ...."
                                         class="block w-full mb-2"
                                     >
                                         <x-slot name="text">
-                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                            {{ $blotter->users[$index]->pivot['narrative'] }}
                                         </x-slot>
                                     </x-textarea>
                                 </td>
@@ -176,16 +174,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blotter->residents as $index => $resident)
-                            @if ($resident->pivot['role'] == 'Victim')
+                        @foreach ($blotter->users as $index => $user)
+                            @if ($user->pivot['role'] == 'Victim')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
                                         autocomplete="off"
                                         readonly
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        id="users[{{$index}}][fullname]"
+                                        name="users[{{$index}}][fullname]"
+                                        value="{{ $user->firstname .' '. $user->lastname}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
@@ -196,7 +194,7 @@
                                         class="block w-full mb-2"
                                     >
                                         <x-slot name="text">
-                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                            {{ $blotter->users[$index]->pivot['narrative'] }}
                                         </x-slot>
                                     </x-textarea>
                                 </td>
@@ -217,8 +215,8 @@
                 </table>
 
                 <div class="col-span-4 px-2">
-                    <x-button type="button" wire:click.prevent="addComplainant" class="px-2">
-                        {{ __('Add Complainant') }}
+                    <x-button type="button" wire:click.prevent="addVictim" class="px-2">
+                        {{ __('Add Victim') }}
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -246,16 +244,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blotter->residents as $index => $resident)
-                            @if ($resident->pivot['role'] == 'Attacker')
+                        @foreach ($blotter->users as $index => $user)
+                            @if ($user->pivot['role'] == 'Attacker')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
                                         autocomplete="off"
                                         readonly
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        id="users[{{$index}}][fullname]"
+                                        name="users[{{$index}}][fullname]"
+                                        value="{{ $user->firstname .' '. $user->lastname}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
@@ -266,7 +264,7 @@
                                         class="block w-full mb-2"
                                     >
                                         <x-slot name="text">
-                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                            {{ $blotter->users[$index]->pivot['narrative'] }}
                                         </x-slot>
                                     </x-textarea>
                                 </td>
@@ -287,8 +285,8 @@
                 </table>
 
                 <div class="col-span-4 px-2">
-                    <x-button type="button" wire:click.prevent="addComplainant" class="px-2">
-                        {{ __('Add Complainant') }}
+                    <x-button type="button" wire:click.prevent="addAttacker" class="px-2">
+                        {{ __('Add Attacker') }}
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
@@ -316,16 +314,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blotter->residents as $index => $resident)
-                            @if ($resident->pivot['role'] == 'Respondent')
+                        @foreach ($blotter->users as $index => $user)
+                            @if ($user->pivot['role'] == 'Respondent')
                             <tr>
                                 <td class="flex px-2">
                                     <x-input type="text"
                                         autocomplete="off"
                                         readonly
-                                        id="residents[{{$index}}][fullname]"
-                                        name="residents[{{$index}}][fullname]"
-                                        value="{{ $resident->firstname .' '. $resident->lastname}}"
+                                        id="users[{{$index}}][fullname]"
+                                        name="users[{{$index}}][fullname]"
+                                        value="{{ $user->firstname .' '. $user->lastname}}"
                                         placeholder="Name"
                                         class="block w-full"
                                         {{-- required --}}/>
@@ -336,7 +334,7 @@
                                         class="block w-full mb-2"
                                     >
                                         <x-slot name="text">
-                                            {{ $blotter->residents[$index]->pivot['narrative'] }}
+                                            {{ $blotter->users[$index]->pivot['narrative'] }}
                                         </x-slot>
                                     </x-textarea>
                                 </td>
@@ -357,8 +355,8 @@
                 </table>
 
                 <div class="col-span-4 px-2">
-                    <x-button type="button" wire:click.prevent="addComplainant" class="px-2">
-                        {{ __('Add Complainant') }}
+                    <x-button type="button" wire:click.prevent="addRespondent" class="px-2">
+                        {{ __('Add Respondent') }}
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
