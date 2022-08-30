@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
 
     Route::view('users', 'users')->name('user.index');
 
+    Route::view('schedule', 'schedule')->name('schedule.index');
+
     Route::get('blotters', [BlottersController::class, 'index'])->name('blotter.index');
 
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
