@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ SystemSetting('barangay') }} BMS</title>
 
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -48,7 +48,9 @@
 @livewire('livewire-ui-modal')
 
 {{-- SweetAlert Added --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+<script src="{{ asset('js/sweetalert2@11.js') }}" ></script>
+
 <script>
     window.addEventListener('swal', function (e){
         Swal.fire(e.detail);
