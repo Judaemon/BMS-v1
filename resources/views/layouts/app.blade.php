@@ -18,24 +18,46 @@
 
         @livewireStyles
         @powerGridStyles
+
+        <style>
+            /* powergrid slect arrow fix*/
+            table.power-grid-table select{
+                background-position: right .3rem center;
+            }
+        </style>
 </head>
 <body>
 <div
     class="flex h-screen bg-gray-50"
     :class="{ 'overflow-hidden': isSideMenuOpen }"
 >
+    {{-- For specific roles --}}
+    @hasanyrole('Super Admin|Officer')
     <!-- Desktop sidebar -->
     @include('layouts.navigation')
     <!-- Mobile sidebar -->
     <!-- Backdrop -->
     @include('layouts.navigation-mobile')
+    @endhasallroles
+    
+    @hasanyrole('Resident')
+    <!-- Desktop sidebar -->
+    @include('layouts.resident.navigation')
+    <!-- Mobile sidebar -->
+    <!-- Backdrop -->
+    @include('layouts.resident.navigation-mobile')
+    @endhasallroles
+
     <div class="flex flex-col flex-1 w-full">
         @include('layouts.top-menu')
         <main class="h-full overflow-y-auto">
             <div class="container px-6 mx-auto grid">
-                <h2 class="my-6 text-2xl font-semibold text-gray-700 text-center">
-                    {{ $header }}
-                </h2>
+                @isset ($header)
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700 text-center">
+                        {{ $header }}
+                    </h2>    
+                @endisset
+                
 
                 {{ $slot }}
             </div>
