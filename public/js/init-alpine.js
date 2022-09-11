@@ -32,6 +32,11 @@ document.addEventListener('alpine:init', () => {
         isMultiLevelMenuOpen: false,
         toggleMultiLevelMenu() {
             this.isMultiLevelMenuOpen = !this.isMultiLevelMenuOpen
+        },
+
+        isMultiLevelMenuOpenResident: true,
+        toggleMultiLevelMenuResident() {
+            this.isMultiLevelMenuOpenResident = !this.isMultiLevelMenuOpenResident
         }
     }))
 })

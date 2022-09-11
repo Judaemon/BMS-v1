@@ -88,7 +88,7 @@
             <section class="flex flex-col justify-center bg-cool-gray-800/20 flex-grow items-center w-full max-w-screen-2xl mx-auto h-96 md:flex-row sm:px-6 lg:px-8">
                     <div class="p-4">
                         <h2 class="text-lg text-center font-poppins font-bold">How can we help you?</h2>
-                        <h3 class="text-sm text-center ">"There is nothing more important than a good, safe, secure home."</h3>
+                        <h3 class="text-sm text-center ">"There is nothing more important than a good, safe, and secure home."</h3>
                     </div>
             </section>
 
