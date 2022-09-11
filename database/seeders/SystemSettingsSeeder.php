@@ -18,15 +18,23 @@ class SystemSettingsSeeder extends Seeder
     {
         $system_setting = [
             [
-                'id' => '1',
-
                 'barangay' => 'BMS Demo',
-                'barangay_logo' => 'public\images\mitacor_logo.png',        
+                'address' => 'BMS Demo',
+                'logo' => 'public\images\mitacor_logo.png',        
+                
+                'isprovince' => '1',
+                'province_municipality' => 'Benguet',
+                'province_municipality_logo' => 'public\images\mitacor_logo.png',
+                
+                'city' => 'Baguio City',
+                
                 'barangay_phone' => '09123456789',
                 'barangay_email' => 'bmsdemo@gmail.com',
                 
-                'province' => 'Benguet',
-                'municipality_city' => 'Baguio City',
+                'facebook' => 'facebook.com',
+                'twitter' => 'twitter.com',
+                'instagram' => 'instagram.com',
+                'youtube' => 'youtube.com',
                 
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
