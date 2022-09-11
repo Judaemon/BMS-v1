@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'firstname' => 'sampleResidentF3',
             'middlename' => 'sampleResidentM3',
             'lastname' => 'sampleResidentL3',
-            'email' => 'sampleResident3@gmail.com',
+            'email' => 'user@user.com',
             'password' => Hash::make('user'),
             'gender' => 'Male',
             'isVoter' => '0',

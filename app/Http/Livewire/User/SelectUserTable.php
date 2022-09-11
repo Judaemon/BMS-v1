@@ -163,7 +163,7 @@ final class SelectUserTable extends PowerGridComponent
        return [
            Button::make('select', 'select')
                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-               ->emit('addInvolvedUser', [
+               ->emit('selectedUser', [
                    'user_id' => 'id', 
                    'firstname' => 'firstname', 
                    'lastname' => 'lastname']),
