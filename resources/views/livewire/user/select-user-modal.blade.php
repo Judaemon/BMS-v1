@@ -3,9 +3,9 @@
         @livewire('user.select-user-table')
     </div>
 
-    <div class="flex">
+    <div class="flex justify-end">
         <x-button wire:click="$emit('closeModal')">
-            {{ __('cancel') }}
+            {{ __('Close') }}
         </x-button>
     </div>
 </div>

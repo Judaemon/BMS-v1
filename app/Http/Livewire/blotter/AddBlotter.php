@@ -10,11 +10,7 @@ use App\Models\Resident;
 class AddBlotter extends ModalComponent
 {
     protected $listeners = [
-        'addInvolvedUser',
-    ];
-
-    public $role1 = [
-
+        'selectedUser',
     ];
     
     public $status = 'Ongoing';
@@ -102,7 +98,7 @@ class AddBlotter extends ModalComponent
         array_values($this->users); // Shuffles index?
     }
 
-    public function addInvolvedUser($userData)
+    public function selectedUser($userData)
     {
         $this->users[] = [
             'user_id' => $userData['user_id'],

@@ -12,8 +12,6 @@
 
     <hr>
 
-    <script>
-    </script>
     <form wire:submit.prevent="submit" id="add-blotter-form">
         <h3 class="col-span-12 my-2 font-medium text-center text-gray-900">Incident Information</h3>
         <div class="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-12 gap-4 mb-4">
