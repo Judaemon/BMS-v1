@@ -50,11 +50,11 @@
                                         <a href="{{ route('login') }}" class="text-sm">Log in</a>
                                     </li>
             
-                                    @if (Route::has('register'))
+                                    {{-- @if (Route::has('register'))
                                     <li class="justify-center bg-white text-white focus:ring-4 focus:outline-none focus:ring-cool-gray-800/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-cool-gray-800/40 dark:focus:ring-gray-600">
                                         <a href="{{ route('register') }}" class="text-sm hover:underline text-cool-gray-800">Register</a>
                                     </li>
-                                    @endif
+                                    @endif --}}
                                 @endauth
                             </ul>
                         @endif
@@ -72,11 +72,11 @@
                                         <a href="{{ route('login') }}" class="text-sm">Log in</a>
                                     </li>
             
-                                    @if (Route::has('register'))
+                                    {{-- @if (Route::has('register'))
                                     <li class="text-white focus:ring-4 focus:outline-none focus:ring-cool-gray-800/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-cool-gray-800/40 dark:focus:ring-gray-600 mr-2 mb-2">
                                         <a href="{{ route('register') }}" class="text-sm hover:underline text-cool-gray-800">Register</a>
                                     </li>
-                                    @endif
+                                    @endif --}}
                                 @endauth
                             </ul>
                         @endif
@@ -112,29 +112,30 @@
                     <h2 class="text-xl font-extrabold font-poppins pb-3">Barangay MITACOR Council 2020 - 2023</h2>
                     
                     <div class="py-3">
+                        {{-- {{ SystemSetting('barangay') }} --}}
                         <p class="text-xs -mt-1">Barangay Captain</p>
-                        <h3 class="text-lg font-medium">John Ray Judaya</h3>
+                        <h3 class="text-lg font-medium">{{ getBarangayCaptain() ?? "No data found" }}</h3>
                     </div>
                     
                     <div class="py-3">
                         <p class="text-xs -mt-1">Kagawads</p>
-                        <h3 class="text-lg font-medium mb-0">Naruto Uzumaki</h3>
-                        <h3 class="text-lg font-medium mb-0">Saitama</h3>
-                        <h3 class="text-lg font-medium mb-0">Ken Kaneki</h3>
-                        <h3 class="text-lg font-medium mb-0">Hachiman Hikigaya</h3>
-                        <h3 class="text-lg font-medium mb-0">Itachi Uchiha</h3>
-                        <h3 class="text-lg font-medium mb-0">Eren Yeager</h3>
-                        <h3 class="text-lg font-medium mb-0">Kurisu Makise </h3>
+                        @foreach (getKagawads() as $kagawad)
+                            @if (!empty($kagawad))
+                                <h3 class="text-lg font-medium mb-0">{{ $kagawad->firstname }} {{ $kagawad->lastname }}</h3>
+                            @else
+                                No data found
+                            @endif
+                        @endforeach
                     </div>
 
                     <div class="py-3">
                         <p class="text-xs -mt-1">Secretary</p>
-                        <h3 class="text-lg font-medium mb-0">Optimus Prime</h3>
+                        <h3 class="text-lg font-medium mb-0">{{ getSecretary() ?? "No data found" }}</h3>
                     </div>
 
                     <div class="py-3">
                         <p class="text-xs -mt-1">Treasurer</p>
-                        <h3 class="text-lg font-medium mb-0">Lelouch Lamperouge</h3>
+                        <h3 class="text-lg font-medium mb-0">{{ getTreasurer() ?? "No data found" }}</h3>
                     </div>
                 </div>
                 <div class="w-3/5">
