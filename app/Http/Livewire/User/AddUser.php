@@ -139,6 +139,9 @@ class AddUser extends ModalComponent
             $this->emit('pg:eventRefresh-UserTable')
         ]);
         
+        // clear cashe for dashboard
+        cache()->forget('registeredResident');
+
         $this->dispatchBrowserEvent('swal', [
             'title' => 'User Added',
             'text' => 'User Succesfully Added',

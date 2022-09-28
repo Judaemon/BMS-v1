@@ -33,6 +33,12 @@ return new class extends Migration
             $table->string('barangay_phone')->nullable();
             $table->string('barangay_email')->nullable();
 
+            // landing page content
+            $table->longText('description')->nullable();
+            $table->longText('vision')->nullable();
+            $table->longText('mission')->nullable();
+            $table->longText('pledge')->nullable();
+
             // Socials
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();

@@ -36,7 +36,7 @@ class CertificateController extends Controller
         // to view template without downloading
         // return view('certificate.certificates-layout.certOfResidency', compact('user', 'certificate', 'systemSetting', 'barangay_captain', 'dateToday'));
 
-        $pdf = PDF::loadview('certificate.certificates-layout.certOfResidency', compact('user', 'certificate', 'systemSetting', 'barangay_captain', 'dateToday'));
+        $pdf = PDF::loadview('certificate.certificates-layout.'.$certificate->filename, compact('user', 'certificate', 'systemSetting', 'barangay_captain', 'dateToday'));
 
         return $pdf->download('certiicate.pdf');
     }

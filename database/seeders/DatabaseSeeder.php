@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             SystemSettingsSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            CertificateSeeder::class,
         ]);
     }
 }

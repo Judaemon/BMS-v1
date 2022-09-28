@@ -101,7 +101,8 @@
                     </div>
                     <div class="flex p-4 flex-grow">
                         <div class="">
-                            <h3 class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim corporis animi ut ratione sit hic in necessitatibus fuga quia possimus? Odio et illo nihil inventore debitis cupiditate quibusdam omnis, est ducimus perferendis reiciendis numquam vero nulla architecto molestias deleniti voluptates quod quos nam consectetur. Non eius quos at dolores facilis!</h3>
+                            <h3 class="text-basetext-lg">{{ SystemSetting('vision') }}</h3>    
+                            <h3 class="text-base">{{ SystemSetting('description') }}</h3>
                         </div>
                     </div>
                 </div>
@@ -114,44 +115,44 @@
                     <div class="py-3">
                         {{-- {{ SystemSetting('barangay') }} --}}
                         <p class="text-xs -mt-1">Barangay Captain</p>
-                        <h3 class="text-lg font-medium">{{ getBarangayCaptain() ?? "No data found" }}</h3>
+                        <h3 class="text-lg font-medium">{{ getBarangayCaptain()['name'] ?? "No data found" }}</h3>
                     </div>
                     
                     <div class="py-3">
                         <p class="text-xs -mt-1">Kagawads</p>
-                        @foreach (getKagawads() as $kagawad)
-                            @if (!empty($kagawad))
+                        @if (!empty(getKagawads()))
+                            @foreach (getKagawads() as $kagawad)
                                 <h3 class="text-lg font-medium mb-0">{{ $kagawad->firstname }} {{ $kagawad->lastname }}</h3>
-                            @else
-                                No data found
-                            @endif
-                        @endforeach
+                            @endforeach
+                        @else
+                            <h3 class="text-lg font-medium">No data found</h3>
+                        @endif
                     </div>
 
                     <div class="py-3">
                         <p class="text-xs -mt-1">Secretary</p>
-                        <h3 class="text-lg font-medium mb-0">{{ getSecretary() ?? "No data found" }}</h3>
+                        <h3 class="text-lg font-medium mb-0">{{ getSecretary()['name'] ?? "No data found" }}</h3>
                     </div>
 
                     <div class="py-3">
                         <p class="text-xs -mt-1">Treasurer</p>
-                        <h3 class="text-lg font-medium mb-0">{{ getTreasurer() ?? "No data found" }}</h3>
+                        <h3 class="text-lg font-medium mb-0">{{ getTreasurer()['name'] ?? "No data found" }}</h3>
                     </div>
                 </div>
                 <div class="w-3/5">
                     <div class="mb-5">
                         <h2 class="text-xl font-extrabold font-poppins pb-1">VISION STATEMENT</h2>
-                        <h3 class="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam accusantium sunt laudantium, nesciunt ipsa tempora rem hic quos eligendi dignissimos ducimus tenetur ut, vero, commodi reprehenderit corporis sapiente. Consequatur, amet.</h3>    
+                        <h3 class="text-lg">{{ SystemSetting('vision') }}</h3>    
                     </div>
 
                     <div class="mb-5">
                         <h2 class="text-xl font-extrabold font-poppins pb-1">MISSION STATEMENT</h2>
-                        <h3 class="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero quae ea rerum quis nostrum laboriosam vel distinctio quidem asperiores nemo consequatur, tenetur dignissimos excepturi officia perferendis pariatur aperiam, aspernatur repudiandae reiciendis. Consectetur nobis laudantium architecto?</h3>    
+                        <h3 class="text-lg">{{ SystemSetting('mission') }}</h3>    
                     </div>
 
                     <div class="mb-5">
                         <h2 class="text-xl font-extrabold font-poppins pb-1">OUR PLEDGE</h2>
-                        <h3 class="text-lg">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus quasi provident suscipit animi, iusto doloremque maiores repellat molestiae itaque, at cumque debitis consectetur. Ipsa iusto pariatur repellat hic nisi id, itaque unde, aliquam natus minus quae, quasi consequuntur sint? Voluptates quod aliquam voluptas laudantium? Adipisci dolorum facere laudantium nam earum!</h3>    
+                        <h3 class="text-lg">{{ SystemSetting('pledge') }}</h3>
                     </div>
                 </div>
             </section>
