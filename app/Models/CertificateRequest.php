@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class CertificateRequest extends Model
+{
+    use HasFactory;
+    
+    public $fillable = [
+        'user_id',
+        'purpose',
+        'certificate_type',
+        'status',
+        'certificate_signature',
+    ];
+}

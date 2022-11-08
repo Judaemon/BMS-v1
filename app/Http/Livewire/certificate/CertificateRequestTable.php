@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\User;
+namespace App\Http\Livewire\Certificate;
 
-use App\Models\User;
+use App\Models\CertificateRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class SelectUserTable extends PowerGridComponent
+final class CertificateRequestTable extends PowerGridComponent
 {
     use ActionButton;
 
@@ -30,6 +30,15 @@ final class SelectUserTable extends PowerGridComponent
         ];
     }
 
+    public function header(): array
+    {
+        return [
+            Button::add('new-modal')
+                ->caption('Add Certificate Request')
+                ->class('bg-green-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+                ->openModal('certificate.add-certificate-request', []),
+        ];
+    }
     /*
     |--------------------------------------------------------------------------
     |  Datasource
@@ -41,11 +50,11 @@ final class SelectUserTable extends PowerGridComponent
     /**
     * PowerGrid datasource.
     *
-    * @return Builder<\App\Models\User>
+    * @return Builder<\App\Models\CertificateRequest>
     */
     public function datasource(): Builder
     {
-        return User::query();
+        return CertificateRequest::query();
     }
 
     /*
@@ -78,14 +87,11 @@ final class SelectUserTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('firstname')
-            ->addColumn('middlename')
-            ->addColumn('lastname')
-            ->addColumn('suffix')
-            ->addColumn('gender')
-            ->addColumn('height')
-            ->addColumn('prk_area');
-        }
+            ->addColumn('user_id')
+            ->addColumn('certificate_type')
+            ->addColumn('status')
+            ->addColumn('certificate_signature');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -107,41 +113,25 @@ final class SelectUserTable extends PowerGridComponent
             Column::make('ID', 'id')
                 ->makeInputRange(),
 
-            Column::make('FIRSTNAME', 'firstname')
+            Column::make('USER ID', 'user_id')
+                ->makeInputRange(),
+
+            Column::make('CERTIFICATE TYPE', 'certificate_type')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('MIDDLENAME', 'middlename')
+            Column::make('STATUS', 'status')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
-            Column::make('LASTNAME', 'lastname')
+            Column::make('CERTIFICATE SIGNATURE', 'certificate_signature')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
-
-            Column::make('SUFFIX', 'suffix')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('GENDER', 'gender')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('HEIGHT', 'height')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::make('PRK AREA', 'prk_area')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-        ];
+        ]
+;
     }
 
     /*
@@ -153,7 +143,7 @@ final class SelectUserTable extends PowerGridComponent
     */
 
      /**
-     * PowerGrid User Action Buttons.
+     * PowerGrid CertificateRequest Action Buttons.
      *
      * @return array<int, Button>
      */
@@ -161,12 +151,15 @@ final class SelectUserTable extends PowerGridComponent
     public function actions(): array
     {
        return [
-           Button::make('select', 'select')
-               ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-               ->emit('selectedUser', [
-                   'user_id' => 'id', 
-                   'firstname' => 'firstname', 
-                   'lastname' => 'lastname']),
+        Button::add('edit-modal')
+            ->caption('Edit')
+            ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+            ->openModal('user.edit-user', ['id']),
+
+        Button::add('delete-modal')
+            ->caption('Delete')
+            ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+            ->openModal('user.delete-user', ['id']),
         ];
     }
 
@@ -179,7 +172,7 @@ final class SelectUserTable extends PowerGridComponent
     */
 
      /**
-     * PowerGrid User Action Rules.
+     * PowerGrid CertificateRequest Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -191,7 +184,7 @@ final class SelectUserTable extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($user) => $user->id === 1)
+                ->when(fn($certificate-request) => $certificate-request->id === 1)
                 ->hide(),
         ];
     }

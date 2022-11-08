@@ -14,11 +14,18 @@ require __DIR__.'/auth.php';
 
 Route::view('about', 'about')->name('about');
 
-Route::middleware('auth')->group(function () {
+// Shared bwetween all roles
+Route::group(['middleware' => ['role:Super Admin|Officer|Resident']], function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    // printing PDFs
+    Route::GET('certificate/print', [CertificateController::class, 'print'])->name('print');
+});
+
+// Admins
+Route::group(['middleware' => ['role:Super Admin|Officer']], function () {
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
-    
-    Route::view('dashboard', 'dashboard')->name('dashboard');
     
     Route::view('users', 'users')->name('user.index');
 
@@ -31,4 +38,13 @@ Route::middleware('auth')->group(function () {
     
     Route::get('settings', [SystemSettingController::class, 'index'])->name('settings.index');
     Route::put('settings/update', [SystemSettingController::class, 'update'])->name('settings.update');
+});
+
+// Residents
+Route::group(['middleware' => ['role:Resident']], function () {
+    Route::view('contact-information', 'contact-information')->name('contact-information');
+    
+    Route::view('resident-blotter', 'resident.blotter')->name('resident-blotter');
+    Route::view('resident-report-incident', 'resident.report-incident')->name('resident-report-incident');
+    Route::view('resident-request-certificate', 'resident.request-certificate')->name('resident-request-certificate');
 });

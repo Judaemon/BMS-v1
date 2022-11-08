@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Livewire\Blotter;
-
-use LivewireUI\Modal\ModalComponent;
+namespace App\Http\Livewire\Resident;
 
 use App\Models\Blotter;
-use App\Models\Resident;
+use Livewire\Component;
 
-class AddBlotter extends ModalComponent
+class ReportIncident extends Component
 {
     protected $listeners = [
         'selectedUser',
     ];
-    
+
     public $status = 'Ongoing';
     public $incident_type;
     public $incident_location;
@@ -30,7 +28,7 @@ class AddBlotter extends ModalComponent
 
     public function render()
     {
-        return view('livewire.blotter.add-blotter');
+        return view('livewire.resident.report-incident');
     }
 
     public function submit()
@@ -53,9 +51,7 @@ class AddBlotter extends ModalComponent
             }
         }
 
-        $this->closeModalWithEvents([
-            $this->emit('pg:eventRefresh-BlotterTable')
-        ]);
+        $this->emit('pg:eventRefresh-BlotterTable');
         
         $this->dispatchBrowserEvent('swal', [
             'title' => 'Blotter Added',
@@ -107,12 +103,5 @@ class AddBlotter extends ModalComponent
             "firstname" => $userData['firstname'],
             "lastname" => $userData['lastname'],
         ];
-
-        $this->closeModal();
-    }
-
-    public static function modalMaxWidth(): string
-    {
-        return '7xl';
     }
 }

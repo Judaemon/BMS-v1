@@ -3,6 +3,7 @@
         {{ __('Dashboard') }}
     </x-slot>
 
+    @hasanyrole('Super Admin|Officer')
     <div class="p-4 bg-white rounded-lg shadow-xs flex flex-col">
         <div class="flex flex-col space-y-2 xl:space-x-2 xl:space-y-0 xl:flex-row">
             <div class="p-2 bg-gray-800 flex-1 text-center">
@@ -26,6 +27,8 @@
                 <h1 class="mb-2 text-1xl text-white">Female</h1>
             </div>
         </div>
+    </div>
+    @endhasallroles
 
         <div class="flex flex-row">
             <div class="p-2 basis-8/12">

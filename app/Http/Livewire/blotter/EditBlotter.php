@@ -22,7 +22,7 @@ class EditBlotter extends ModalComponent
     ];
 
     protected $listeners = [
-        'addInvolvedUser',
+        'selectedUser',
     ];
 
     public function mount(Blotter $blotter)
@@ -60,7 +60,7 @@ class EditBlotter extends ModalComponent
             'icon' => 'success',
         ]);
     }
-    public function addInvolvedUser($userData)
+    public function selectedUser($userData)
     {
         $this->blotter->users()->attach(
             $userData['user_id'], 

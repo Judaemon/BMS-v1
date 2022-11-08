@@ -73,9 +73,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // 1 to 1 relationship
-    public function resident()
+    // one to many relationship
+    public function certificateRequests()
     {
-        return $this->hasOne(Resident::class);
+        return $this->hasMany(CertificateRequest::class);
     }
 }
