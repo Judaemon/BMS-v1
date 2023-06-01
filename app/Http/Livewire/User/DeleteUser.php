@@ -30,6 +30,9 @@ class DeleteUser extends ModalComponent
             $this->emit('pg:eventRefresh-UserTable')
         ]);
 
+        // clear cashe for dashboard
+        cache()->forget('registeredResident');
+        
         $this->dispatchBrowserEvent('swal', [
             'title' => 'Deleted Successfully',
             'text' => 'User succesfully deleted',

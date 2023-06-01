@@ -11,10 +11,7 @@ class Certificate extends Model
 
     protected $fillable = [
         'type',
-        'logo_1',
-        'logo_2',
-        'logo_3',
         'office',
+        'filename',
     ];
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,7 +52,6 @@ class User extends Authenticatable
         'tin',
 
         'barangay_position',
-        'date_registered',
     ];
 
     /**
@@ -77,5 +77,17 @@ class User extends Authenticatable
     public function certificateRequests()
     {
         return $this->hasMany(CertificateRequest::class);
+    }
+
+    public function age()
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
+    }
+
+    public static function getBarangayCaptain()
+    {
+        // $user = User::findOrFail($userID);
+
+        return User::where('barangay_position', '=', 'Barangay Captain')->first();
     }
 }

@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CertificateRequest extends Model
 {
     use HasFactory;
-    
+
     public $fillable = [
         'user_id',
-        'purpose',
         'certificate_type',
+        'purpose',
         'status',
-        'certificate_signature',
     ];
 }

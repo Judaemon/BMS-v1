@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Barryvdh\DomPDF\Facade\Pdf;
 
+use App\Models\Certificate;
+use App\Models\SystemSetting;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CertificateController extends Controller
@@ -17,13 +21,23 @@ class CertificateController extends Controller
         return view('certificate.types');
     }
 
-    public function print(Request $request)
+    public function print($certyficateType, $userID)
     {
-        // return view('certificate.certificates-layout.certOfResidency');
+        $barangay_captain = User::getBarangayCaptain();
 
-        $pdf = PDF::loadview('certificate.certificates-layout.certOfResidency');
+        $user = User::findOrFail($userID);
 
-            // setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reports.invoiceSell')->stream();
+        $certificate = Certificate::where('type', $certyficateType)->firstOrFail();
+
+        $systemSetting = SystemSetting::first();;
+
+        $dateToday = Carbon::now()->toDateString();
+
+        // to view template without downloading
+        // return view('certificate.certificates-layout.certOfResidency', compact('user', 'certificate', 'systemSetting', 'barangay_captain', 'dateToday'));
+
+        $pdf = PDF::loadview('certificate.certificates-layout.'.$certificate->filename, compact('user', 'certificate', 'systemSetting', 'barangay_captain', 'dateToday'));
+
         return $pdf->download('certiicate.pdf');
     }
 }

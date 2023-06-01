@@ -22,6 +22,7 @@ class AddCertificate extends ModalComponent
         // 'certificate.logo_2' => ['required'],
         // 'certificate.logo_3' => ['required'],
         'office' => ['required'],
+        'filename' => ['required'],
     ];
 
     public function render()
@@ -32,26 +33,24 @@ class AddCertificate extends ModalComponent
     public function submit()
     {
         $this->validate();
-    
+
         Certificate::create([
             'type' => $this->type,
-            // 'logo_1' => $this->logo_1,
-            // 'logo_2' => $this->logo_2,
-            // 'logo_3' => $this->logo_3,
             'office' => $this->office,
+            'filename' => $this->filename,
         ]);
 
         $this->closeModalWithEvents([
             $this->emit('pg:eventRefresh-CertificateTable')
         ]);
-        
+
         $this->dispatchBrowserEvent('swal', [
             'title' => 'Certificate Added',
             'text' => 'Certificate Succesfully Added',
             'icon' => 'success',
         ]);
     }
-    
+
     public static function modalMaxWidth(): string
     {
         return '7xl';

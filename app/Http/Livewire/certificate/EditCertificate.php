@@ -14,10 +14,8 @@ class EditCertificate extends ModalComponent
 
     protected $rules = [
         'certificate.type' => ['required'],
-        // 'certificate.logo_1' => ['required'],
-        // 'certificate.logo_2' => ['required'],
-        // 'certificate.logo_3' => ['required'],
         'certificate.office' => ['required'],
+        'certificate.filename' => ['required'],
     ];
 
     public function mount(Certificate $certificate)
@@ -34,8 +32,6 @@ class EditCertificate extends ModalComponent
     {
         $this->validate();
 
-        // dd($this->certificate);
-
         $this->certificate->save();
 
         $this->closeModalWithEvents([
@@ -43,8 +39,8 @@ class EditCertificate extends ModalComponent
         ]);
 
         $this->dispatchBrowserEvent('swal', [
-            'title' => 'User Saved',
-            'text' => 'User Succesfully edited',
+            'title' => 'Certificate Saved',
+            'text' => 'Certificate succesfully edited',
             'icon' => 'success',
         ]);
     }

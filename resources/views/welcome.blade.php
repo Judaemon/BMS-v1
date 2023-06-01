@@ -50,11 +50,11 @@
                                         <a href="{{ route('login') }}" class="text-sm">Log in</a>
                                     </li>
             
-                                    @if (Route::has('register'))
+                                    {{-- @if (Route::has('register'))
                                     <li class="justify-center bg-white text-white focus:ring-4 focus:outline-none focus:ring-cool-gray-800/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-cool-gray-800/40 dark:focus:ring-gray-600">
                                         <a href="{{ route('register') }}" class="text-sm hover:underline text-cool-gray-800">Register</a>
                                     </li>
-                                    @endif
+                                    @endif --}}
                                 @endauth
                             </ul>
                         @endif
@@ -72,11 +72,11 @@
                                         <a href="{{ route('login') }}" class="text-sm">Log in</a>
                                     </li>
             
-                                    @if (Route::has('register'))
+                                    {{-- @if (Route::has('register'))
                                     <li class="text-white focus:ring-4 focus:outline-none focus:ring-cool-gray-800/50 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-cool-gray-800/40 dark:focus:ring-gray-600 mr-2 mb-2">
                                         <a href="{{ route('register') }}" class="text-sm hover:underline text-cool-gray-800">Register</a>
                                     </li>
-                                    @endif
+                                    @endif --}}
                                 @endauth
                             </ul>
                         @endif
@@ -101,7 +101,8 @@
                     </div>
                     <div class="flex p-4 flex-grow">
                         <div class="">
-                            <h3 class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim corporis animi ut ratione sit hic in necessitatibus fuga quia possimus? Odio et illo nihil inventore debitis cupiditate quibusdam omnis, est ducimus perferendis reiciendis numquam vero nulla architecto molestias deleniti voluptates quod quos nam consectetur. Non eius quos at dolores facilis!</h3>
+                            <h3 class="text-basetext-lg">{{ SystemSetting('vision') }}</h3>    
+                            <h3 class="text-base">{{ SystemSetting('description') }}</h3>
                         </div>
                     </div>
                 </div>
@@ -112,45 +113,46 @@
                     <h2 class="text-xl font-extrabold font-poppins pb-3">Barangay MITACOR Council 2020 - 2023</h2>
                     
                     <div class="py-3">
+                        {{-- {{ SystemSetting('barangay') }} --}}
                         <p class="text-xs -mt-1">Barangay Captain</p>
-                        <h3 class="text-lg font-medium">John Ray Judaya</h3>
+                        <h3 class="text-lg font-medium">{{ getBarangayCaptain()['name'] ?? "No data found" }}</h3>
                     </div>
                     
                     <div class="py-3">
                         <p class="text-xs -mt-1">Kagawads</p>
-                        <h3 class="text-lg font-medium mb-0">Naruto Uzumaki</h3>
-                        <h3 class="text-lg font-medium mb-0">Saitama</h3>
-                        <h3 class="text-lg font-medium mb-0">Ken Kaneki</h3>
-                        <h3 class="text-lg font-medium mb-0">Hachiman Hikigaya</h3>
-                        <h3 class="text-lg font-medium mb-0">Itachi Uchiha</h3>
-                        <h3 class="text-lg font-medium mb-0">Eren Yeager</h3>
-                        <h3 class="text-lg font-medium mb-0">Kurisu Makise </h3>
+                        @if (!empty(getKagawads()))
+                            @foreach (getKagawads() as $kagawad)
+                                <h3 class="text-lg font-medium mb-0">{{ $kagawad->firstname }} {{ $kagawad->lastname }}</h3>
+                            @endforeach
+                        @else
+                            <h3 class="text-lg font-medium">No data found</h3>
+                        @endif
                     </div>
 
                     <div class="py-3">
                         <p class="text-xs -mt-1">Secretary</p>
-                        <h3 class="text-lg font-medium mb-0">Optimus Prime</h3>
+                        <h3 class="text-lg font-medium mb-0">{{ getSecretary()['name'] ?? "No data found" }}</h3>
                     </div>
 
                     <div class="py-3">
                         <p class="text-xs -mt-1">Treasurer</p>
-                        <h3 class="text-lg font-medium mb-0">Lelouch Lamperouge</h3>
+                        <h3 class="text-lg font-medium mb-0">{{ getTreasurer()['name'] ?? "No data found" }}</h3>
                     </div>
                 </div>
                 <div class="w-3/5">
                     <div class="mb-5">
                         <h2 class="text-xl font-extrabold font-poppins pb-1">VISION STATEMENT</h2>
-                        <h3 class="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam accusantium sunt laudantium, nesciunt ipsa tempora rem hic quos eligendi dignissimos ducimus tenetur ut, vero, commodi reprehenderit corporis sapiente. Consequatur, amet.</h3>    
+                        <h3 class="text-lg">{{ SystemSetting('vision') }}</h3>    
                     </div>
 
                     <div class="mb-5">
                         <h2 class="text-xl font-extrabold font-poppins pb-1">MISSION STATEMENT</h2>
-                        <h3 class="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero quae ea rerum quis nostrum laboriosam vel distinctio quidem asperiores nemo consequatur, tenetur dignissimos excepturi officia perferendis pariatur aperiam, aspernatur repudiandae reiciendis. Consectetur nobis laudantium architecto?</h3>    
+                        <h3 class="text-lg">{{ SystemSetting('mission') }}</h3>    
                     </div>
 
                     <div class="mb-5">
                         <h2 class="text-xl font-extrabold font-poppins pb-1">OUR PLEDGE</h2>
-                        <h3 class="text-lg">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus quasi provident suscipit animi, iusto doloremque maiores repellat molestiae itaque, at cumque debitis consectetur. Ipsa iusto pariatur repellat hic nisi id, itaque unde, aliquam natus minus quae, quasi consequuntur sint? Voluptates quod aliquam voluptas laudantium? Adipisci dolorum facere laudantium nam earum!</h3>    
+                        <h3 class="text-lg">{{ SystemSetting('pledge') }}</h3>
                     </div>
                 </div>
             </section>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('purpose');
             $table->string('certificate_type');
             //Unpaid //Paid //Released //Cancelled (if Unpaid > 30 days)
-            $table->string('status'); 
+            $table->string('status');
             $table->string('certificate_signature')->nullable();
             $table->timestamps();
         });

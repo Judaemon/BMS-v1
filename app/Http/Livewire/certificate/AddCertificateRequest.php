@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Certificate;
 
 use App\Models\Certificate;
 use App\Models\CertificateRequest;
+use Illuminate\Support\Facades\Auth;
 use LivewireUI\Modal\ModalComponent;
 
 class AddCertificateRequest extends ModalComponent
@@ -12,8 +13,10 @@ class AddCertificateRequest extends ModalComponent
     public $user_fullname;
     public $purpose;
     public $certificate_type;
-    public $status;
     public $certificate_signature;
+
+    //Unpaid //Paid //Released //Cancelled (if Unpaid > 30 days)
+    public $status = "Unpaid";
 
     public $certificate_types;
 
@@ -23,11 +26,9 @@ class AddCertificateRequest extends ModalComponent
 
     protected $rules = [
         'user_id' => ['required'],
-        'user_fullname' => ['required'],
         'purpose' => ['required'],
-        'certificate_type' => ['required'],
+        'certificate_type' => ['required', 'exists:certificates,type'],
         'status' => ['required'],
-        'certificate_signature' => ['required'],
     ];
 
     protected $messages = [
@@ -37,8 +38,14 @@ class AddCertificateRequest extends ModalComponent
     public function mount()
     {
         $certificate_types = Certificate::pluck('type')->toArray();
-        
+
         $this->certificate_types  = array_combine($certificate_types, $certificate_types);
+        $certificate_types  = array_combine($certificate_types, $certificate_types);
+        $this->certificate_types = ["Placeholder" => "Select Certificate"] + $certificate_types;
+
+        if (Auth::user()->hasRole('Resident')) {
+            $this->user_id = Auth::user()->id;
+        }
     }
 
     public function render()
@@ -48,10 +55,10 @@ class AddCertificateRequest extends ModalComponent
 
     public function submit()
     {
-        dd($this->certificate_types);
+        // dd($this->certificate_types);
         $this->validate();
-        
-    
+
+
         // CertificateRequest::create([
         //     'user_id' => $this->user_id,
         //     'purpose' => $this->purpose,
@@ -59,11 +66,19 @@ class AddCertificateRequest extends ModalComponent
         //     'status' => $this->status,
         //     'certificate_signature' => $this->certificate_signature,
         // ]);
+        $this->validate();
+
+        CertificateRequest::create([
+            'user_id' => $this->user_id,
+            'purpose' => $this->purpose,
+            'certificate_type' => $this->certificate_type,
+            'status' => $this->status,
+        ]);
 
         $this->closeModalWithEvents([
             $this->emit('pg:eventRefresh-CertificateRequestTable')
         ]);
-        
+
         $this->dispatchBrowserEvent('swal', [
             'title' => 'Certificate Request Added',
             'text' => 'Certificate Request Succesfully Added',

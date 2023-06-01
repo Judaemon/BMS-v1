@@ -89,8 +89,8 @@ final class CertificateRequestTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('user_id')
             ->addColumn('certificate_type')
-            ->addColumn('status')
-            ->addColumn('certificate_signature');
+            ->addColumn('certificate_signature')
+            ->addColumn('status');
     }
 
     /*
@@ -150,16 +150,16 @@ final class CertificateRequestTable extends PowerGridComponent
 
     public function actions(): array
     {
-       return [
-        Button::add('edit-modal')
-            ->caption('Edit')
-            ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
-            ->openModal('user.edit-user', ['id']),
+        return [
+            Button::add('update-modal')
+                ->caption('Update')
+                ->class('bg-blue-500 cursor-pointer text-white px-3 py-2 rounded flex justify-center text-sm')
+                ->openModal('certificate.update-certificate-request', ['id']),
 
-        Button::add('delete-modal')
-            ->caption('Delete')
-            ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-            ->openModal('user.delete-user', ['id']),
+            Button::add('delete-modal')
+                ->caption('Delete')
+                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+                ->openModal('certificate.delete-certificate-request', ['id']),
         ];
     }
 

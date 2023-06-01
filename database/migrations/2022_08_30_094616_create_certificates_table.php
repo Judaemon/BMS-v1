@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('logo_2')->nullable();
             $table->string('logo_3')->nullable();
             $table->string('office')->nullable();
+            $table->string('office')->nullable();
+            $table->string('filename')->nullable();
 
             $table->timestamps();
         });
